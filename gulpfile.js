@@ -4,7 +4,7 @@ const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
-const dist = "./dist/";
+const dist = "/opt/lampp/htdocs/objectOrientProjDev/";
 // const dist = "/Applications/MAMP/htdocs/test"; // Ссылка на вашу папку на сервере
 
 gulp.task("copy-html", () => {
