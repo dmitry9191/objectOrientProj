@@ -5,6 +5,23 @@ export default class VideoPlayer {
         this.close = this.overlay.querySelector('.close');
     }
 
+    bindTriggers() {
+        this.btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const path = btn.getAttribute('data-url');
+                
+                !this.videoPlayer ? this.createPlayer(path) : this.overlay.style.display = 'flex';
+            });
+        });
+    }
+
+    bindCloseBtn() {
+        this.close.addEventListener('click', () => {
+            this.overlay.style.display = 'none';
+            this.videoPlayer.stopVideo();
+        });
+    }
+
     createPlayer(url) {
         this.videoPlayer = new YT.Player('frame', { // создается плеер через объект YT который подгружается в init. frame - id элемента верстки для плеера
             height: '100%',
@@ -21,13 +38,7 @@ export default class VideoPlayer {
 
         tag.src = "https://www.youtube.com/iframe_api";
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        this.btns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const path = btn.getAttribute('data-url');
-
-                this.createPlayer(path);
-            })
-        })
+        this.bindTriggers();
+        this.bindCloseBtn();
     }
 }
