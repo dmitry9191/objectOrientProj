@@ -1,8 +1,8 @@
 import Slider from './slider';
 
 export default class MainSlider extends Slider {
-    constructor(btns) {
-        super(btns);
+    constructor(btns, next, container, prev) {
+        super(btns, next, container, prev);
     }
 
     showSlides(n) {
@@ -27,7 +27,7 @@ export default class MainSlider extends Slider {
             }
         } catch(e) {}
 
-    [].forEach.call(this.slides, slide => {
+        [].forEach.call(this.slides, slide => {
             slide.style.display = 'none';
         });
 
@@ -39,12 +39,7 @@ export default class MainSlider extends Slider {
         this.showSlides(this.slideIndex += n);
     }
 
-    render() {
-
-        try {
-            this.hanson = document.querySelector('.hanson');
-        } catch(e) {}
-
+    bindTriggers() {
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 this.plusSlides(1);
@@ -56,6 +51,36 @@ export default class MainSlider extends Slider {
             });
         });
 
-        this.showSlides(this.slideIndex);
+        this.prev.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.plusSlides(-1);
+            });
+        }); 
+
+        this.next.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.plusSlides(1);
+            });
+        });
+
+    }
+
+    render() {
+
+        console.log(this.prev);
+
+        if (this.container) {
+            try {
+                this.hanson = document.querySelector('.hanson');
+            } catch(e) {}
+    
+            this.bindTriggers();
+            this.showSlides(this.slideIndex);
+
+        } 
     }
 }
