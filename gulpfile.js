@@ -4,7 +4,7 @@ const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
-const dist = "/opt/lampp/htdocs/objectOrientProjDev/";
+const dist = "/opt/lampp/htdocs/objectOrientProj/";
 // const dist = "/Applications/MAMP/htdocs/test"; // Ссылка на вашу папку на сервере
 
 gulp.task("copy-html", () => {
@@ -68,8 +68,6 @@ gulp.task("watch", () => {
     gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
 });
 
-gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js"));
-
 gulp.task("build-prod-js", () => {
     return gulp.src("./src/js/main.js")
                 .pipe(webpack({
@@ -97,5 +95,7 @@ gulp.task("build-prod-js", () => {
                 }))
                 .pipe(gulp.dest(dist));
 });
+
+gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-prod-js"));
 
 gulp.task("default", gulp.parallel("watch", "build"));

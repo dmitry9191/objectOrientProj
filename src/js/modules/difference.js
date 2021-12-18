@@ -1,5 +1,5 @@
 export default class Difference {
-    constructor(oldOfficer, newOfficer, items) {
+    constructor(oldOfficer, newOfficer = null, items) {
         try {
             this.oldOfficer = document.querySelector(oldOfficer);
             this.newOfficer = document.querySelector(newOfficer);

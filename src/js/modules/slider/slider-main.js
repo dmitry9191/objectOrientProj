@@ -45,10 +45,12 @@ export default class MainSlider extends Slider {
                 this.plusSlides(1);
             });
 
-            btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showSlides(this.slides.length + 1);
-            });
+            if (btn.parentNode.className === "sidecontrol__controls") {
+                btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showSlides(this.slides.length + 1);
+                });
+            }
         });
 
         this.prev.forEach(item => {
@@ -71,8 +73,6 @@ export default class MainSlider extends Slider {
 
     render() {
 
-        console.log(this.prev);
-
         if (this.container) {
             try {
                 this.hanson = document.querySelector('.hanson');
@@ -80,7 +80,6 @@ export default class MainSlider extends Slider {
     
             this.bindTriggers();
             this.showSlides(this.slideIndex);
-
         } 
     }
 }
